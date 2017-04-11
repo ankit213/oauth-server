@@ -1,11 +1,11 @@
 version: 1.0.{build}
-os: Visual Studio 2015
+os: Visual Studio 2017
 skip_tags: true
 configuration: Release
 environment:
  nodejs_version: "0.12"
  COVERALLS_REPO_TOKEN:
-   secure: xOHAO0rwe8Sor/UAQ06WVsjlXEreqEZDqNKJp5ibQF9YE/jwvjId9rdzBBJaJnUp
+   secure: oI8JLO5/25+ZMrrWdVckNz5zqUysVlU+VVMBpPxZlEXaQ/A/6z544OcIs8rVhk49
 cache:
 - "%LOCALAPPDATA%\\Yarn"
 install:
@@ -22,17 +22,13 @@ build:
   project: .\Promact.Oauth.Server\Promact.Oauth.Server.sln
   verbosity: minimal
 test_script:
-- dir 
-- ls C:\Users\appveyor\.nuget\packages\xunit.runner.console
-- ls C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474
-- ls C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474\tools
-- ls .\src\Promact.Oauth.Server.Tests\bin
-- ls .\src\Promact.Oauth.Server.Tests\bin\Release
-- ls .\src\Promact.Oauth.Server.Tests\bin\Release\netcoreapp1.1
+- cd ".\src\Promact.Oauth.Server.Tests\"
 - ps: >-
-   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474\tools\xunit.console.exe" "-targetargs:"".\src\Promact.Oauth.Server.Tests\bin\Release\netcoreapp1.1\Promact.Oauth.Server.Tests.dll"" -appveyor -noshadow" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -output:opencover.xml
-   
+   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f netcoreapp1.1 -c Release Promact.Oauth.Server.Tests.csproj" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -mergeoutput -hideskipped:File -output:opencover.xml -oldStyle
+
    if(![string]::IsNullOrEmpty($env:COVERALLS_REPO_TOKEN)){
+
    $coveralls = (Resolve-Path "C:\Users\appveyor\.nuget\packages\coveralls.net\0.8.0-unstable0013\tools\csmacnz.coveralls.exe").ToString()
+
    & $coveralls --opencover -i opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
    }   
