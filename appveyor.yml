@@ -23,7 +23,7 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474\tools\xunit.console.exe" "-targetargs:"".\Promact.Oauth.Server\src\Promact.Oauth.Server.Tests\bin\Release\netcoreapp1.1\Promact.Oauth.Server.Tests.dll" -appveyor -noshadow" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -output:opencover.xml
+   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474\tools\xunit.console.exe" "-targetargs:"".\Promact.Oauth.Server\src\Promact.Oauth.Server.Tests\bin\Release\netcoreapp1.1\Promact.Oauth.Server.Tests.dll"" -appveyor -noshadow" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -output:opencover.xml
    
    if(![string]::IsNullOrEmpty($env:COVERALLS_REPO_TOKEN)){
 
