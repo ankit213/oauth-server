@@ -1,5 +1,5 @@
 version: 1.0.{build}
-os: Visual Studio 2017
+os: Visual Studio 2015
 skip_tags: true
 configuration: Release
 environment:
@@ -15,20 +15,18 @@ install:
 - cd ".\Promact.Oauth.Server\src\Promact.Oauth.Server\"
 - yarn
 - cd..
-- cd..
 build_script:
 - ps: dotnet restore
 build:
   project: .\Promact.Oauth.Server\Promact.Oauth.Server.sln
   verbosity: minimal
 test_script:
-- cd ".\src\Promact.Oauth.Server.Tests\"
 - ps: >-
    C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Users\appveyor\.nuget\packages\xunit.runner.console\2.2.0-beta5-build3474\tools\xunit.console.exe" "-targetargs:"".\Promact.Oauth.Server\src\Promact.Oauth.Server.Tests\bin\Release\netcoreapp1.1\Promact.Oauth.Server.Tests.dll" -appveyor -noshadow" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -output:opencover.xml
-
+   
    if(![string]::IsNullOrEmpty($env:COVERALLS_REPO_TOKEN)){
 
    $coveralls = (Resolve-Path "C:\Users\appveyor\.nuget\packages\coveralls.net\0.8.0-unstable0013\tools\csmacnz.coveralls.exe").ToString()
 
    & $coveralls --opencover -i opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
-   }
+   }   
