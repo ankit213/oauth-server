@@ -4,7 +4,7 @@ skip_tags: true
 configuration: Release
 environment:
  nodejs_version: "0.12"
- COVERALLS_REPO_TOKEN:adc7KpdWU1tn7YT9NiO93c8TkvReWiYnj
+ COVERALLS_REPO_TOKEN: adc7KpdWU1tn7YT9NiO93c8TkvReWiYnj
 cache:
 - "%LOCALAPPDATA%\\Yarn"
 install:
