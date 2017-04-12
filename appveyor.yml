@@ -22,10 +22,9 @@ build:
   project: .\Promact.Oauth.Server\Promact.Oauth.Server.sln
   verbosity: minimal
 test_script:
-- ps: >-
-   ls: C:\Users\appveyor\.nuget\packages
-   ls :C:\Users\appveyor\.nuget\packages\coveralls.net
-   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f netcoreapp1.1 -c Release .\src\Promact.Oauth.Server.Tests\Promact.Oauth.Server.Tests.csproj" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -mergeoutput -hideskipped:File -output:opencover.xml -oldStyle
+- cd ".\src\"
+- ps: >-   
+   C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f netcoreapp1.1 -c Release .\Promact.Oauth.Server.Tests\Promact.Oauth.Server.Tests.csproj" -filter:"+[Promact.Oauth.Server*]* -[Promact.Oauth.Server.Tests*]*" -mergeoutput -hideskipped:File -output:opencover.xml -oldStyle
 
    if(![string]::IsNullOrEmpty($env:COVERALLS_REPO_TOKEN)){
 
