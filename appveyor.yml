@@ -21,8 +21,8 @@ build_script:
 build:
   project: .\Promact.Oauth.Server\Promact.Oauth.Server.sln
   verbosity: minimal
-  dir C:\Users\appveyor\.nuget\packages
 test_script:
+- dir C:\Users\appveyor\.nuget\packages
 - ps: >-
    C:\Users\appveyor\.nuget\packages\OpenCover\4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f netcoreapp1.1 -c Release .\src\Promact.Oauth.Server.Tests\Promact.Oauth.Server.Tests.csproj" -filter:"+[Promact.Oauth.Server]*Repository -[Promact.Oauth.Server.Tests*]*" -mergeoutput -hideskipped:File -output:opencover.xml -oldStyle
 
